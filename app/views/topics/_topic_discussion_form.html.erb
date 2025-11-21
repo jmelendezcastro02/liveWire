@@ -1,0 +1,17 @@
+<%= form_with(model: reply) do |form| %>
+  <%= form.hidden_field :topic_id, value: topic.id %>
+  <%= form.hidden_field :user_id, value: session[:current_user]["id"] %>
+
+  <div class="row mb-3">
+    <%= form.label :message, session[:current_user]["username"] + ": ", class: "col-sm-3 col-form-label fw-bold  text-end" %>
+
+    <div class="col-sm-7">
+      <%= form.textarea :message, class: "form-control" %>
+    </div>
+
+    <div class="col-sm-2 text-end">
+      <%= form.submit "Responder", class: "btn btn-primary" %>
+    </div>
+  </div>
+
+<% end %>

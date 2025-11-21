@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-md-12 text-end">
+    <%= link_to "Crear", new_topic_path, class: "btn btn-primary" %>
+  </div>
+</div>
+
+<%= turbo_stream_from "topics_socket" %>
+<% @topics.each do |topic| %>
+  <div id="topics_container">
+    <div id="<%= dom_id topic %>">
+      <div class="row align-items-md-stretch">
+        <div class="col-md-12">
+          <div class="px-5 pt-5">
+            <div class="h-100 p-5 bg-light border rounded-3">
+              <%= render "topics/topic", topic: topic %>
+              <div class="row">
+                <div class="col-md-12 text-end">
+                  <%= link_to "Ver", topic, class: "btn btn-primary" %>
+                  <% if topic.user_id == session[:current_user]["id"] %>
+                    <%= link_to "Eliminar", topic, class: "btn btn-danger", data: { turbo_method: :delete } %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
